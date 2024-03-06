@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Urbanist&display=swap');
+
+/* font-size */
+$base-font-size: 10px;
+$base-font-weight: 400;
+$font-clr: white;
+$font-roboto: 'Roboto', sans-serif;
+$font-urbanist: 'Urbanist', sans-serif;
+$font-poppins: 'Poppins';
+
+@mixin fontSize($size) {
+  font-size: $base-font-size + $size;
+}
+
+@mixin fontWeight($size) {
+  font-weight: $base-font-weight + $size;
+}
+
+@mixin fontStyle(
+  $font-family,
+  $base-font-size,
+  $base-font-weight,
+  $font-clr,
+  $line-he,
+  $let-spac
+) {
+  font-family: $font-family;
+  font-size: $base-font-size;
+  font-weight: $base-font-weight;
+  color: $font-clr;
+  line-height: $line-he;
+  letter-spacing: $let-spac;
+}

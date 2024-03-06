@@ -1,0 +1,11 @@
+@import '../commonStyles/color.module.scss';
+
+@mixin title-typo {
+    background-color: $white;
+    h2{
+        text-align: center;
+        font-style: normal;
+        margin-top: 40px;
+        @include fontStyle($font-poppins, 32px, 700, $text-color, 'normal', 0);
+    }
+}

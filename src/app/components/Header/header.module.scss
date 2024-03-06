@@ -1,0 +1,49 @@
+@import '../../commonStyles/font.module.scss';
+@import '../../commonStyles/media-queries.scss';
+@import '../../commonStyles/color.module.scss';
+
+.headerLayout {
+    width: 100%;
+    justify-content: center;
+    margin: auto;
+    background-color: $white;
+    height: 82px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    .headerElements {
+        nav {
+            ul{ 
+                margin-top:12px;
+                a{
+                    margin-right: 14px;
+                    @include fontStyle($font-poppins, 16px, 500, $black, 24px, 0em);
+                }
+            }
+        }
+        @include respond(medium) {
+            img {
+                margin-top: -10px;
+            }
+        }
+        .headerLayout-icons {
+            margin-top:10px;
+        }
+        img {
+            cursor: pointer;
+        }
+    }
+}
+.navPopUp {
+    :global {
+        .ant-modal-close{
+            top:-8px!important;
+        }
+        .ant-modal-body {
+            p a {
+                @include fontStyle($font-poppins, 16px, 500, $black, 24px, 0em);
+            }
+        }
+    }
+    top:0
+}

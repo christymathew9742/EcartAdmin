@@ -1,0 +1,45 @@
+@import './color.module.scss';
+
+$width: 0px;
+$bg-clr: white;
+$txt-clr: white;
+$font-size: 0px;
+$font-weight: 100;
+
+@mixin statusBtn($status-btn-gray) {
+  height: 25px;
+  background: $status-btn-gray;
+  border-radius: 70px;
+  font-weight: bold;
+  font-size: 14px;
+  letter-spacing: 1px;
+  line-height: 17px;
+  color: $white-clr;
+  border: none;
+  width: 123px;
+  display: flex;
+  align-items: center;
+}
+@mixin button(
+  $width,
+  $bg-clr,
+  $txt-clr,
+  $font-size,
+  $font-weight,
+  $border,
+  $outline,
+  $padding
+) {
+  width: $width;
+  background: $bg-clr;
+  color: $txt-clr;
+  font-size: $font-size;
+  font-weight: $font-weight;
+  padding: $padding;
+  border: $border;
+  border-radius: 3px;
+  height: 45px;
+  transition: all 0.5s ease-in;
+  letter-spacing: 0.7px;
+  outline: $outline;
+}

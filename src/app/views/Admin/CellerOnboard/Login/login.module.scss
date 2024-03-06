@@ -1,0 +1,94 @@
+
+@import '../../../../commonStyles/font.module.scss';
+@import '../../../../commonStyles/media-queries.scss';
+@import '../../../../commonStyles/color.module.scss';
+@import '../../../../commonStyles/style.module.scss';
+
+.login {
+    padding: 46px 0px 0px 0px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    .loginWrapper {
+        .loginFprm {
+            background-color: $glassWhite;
+            border-radius: 20px;
+            padding: 30px 24px 24px 24px;
+            h5 {
+                @include fontStyle($font-poppins, 21px, 400,$black, 36px,0em);
+                b {
+                    color:$loginTheme;
+                }
+            }
+            h2 {
+                @include fontStyle($font-poppins, 48px, 500,$black, 36px,0em);
+                margin-top:10px;
+            }
+            .signIn {
+                @include fontStyle($font-poppins, 10px, 400,$logintext1, 18px,0em);
+                a {
+                    color:$loginTheme;
+                }
+            }
+            .formWrapper {
+                display: block;
+                label {
+                    @include fontStyle($font-poppins, 12px, 400,$black, 18px,0em);
+                }
+                input {
+                    // border: 1px solid $gray2;
+                    color: $gray2;
+                    border-radius: 4px;
+                    height: 40px;
+                    font-size: 12px;
+                    :focus,:active{
+                        color: $gray2!important;
+                    }
+                }
+                :global {
+                    .ant-input-password {
+                        border-radius: 4px!important;
+                        padding: 0px 14px 0px 14px!important;
+                    }
+                }
+            }
+            .submitSection {
+                a{
+                    @include fontStyle($font-poppins, 12px, 400,$loginLblue, 18px,0em);
+                }
+                button {
+                    margin-top:15px;
+                    @include fontStyle($font-poppins, 16px, 500,$white, 18px,0em);
+                    background-color: $loginTheme;
+                    border-radius: 10px;
+                    padding:10px 22px 28px 22px;
+                }
+            }
+            .gWrapper {
+                cursor: pointer;
+                border-radius: 7px;
+                padding: 6px;
+                background-color: $gwrapperColor;
+                :nth-child(1) {
+                    text-align: center;
+                }
+                :nth-child(2) {
+                    @include fontStyle($font-poppins, 12px, 400,$loginLblue, 26px,0em);
+                }
+            }
+            .socialLogin {
+                margin: 12px -24px 20px 0px!important;
+                .cl1 {
+                    padding-left: 0px!important
+                }
+                .cl2,.cl3{
+                    padding: 6px;
+                    text-align: center;
+                    border-radius: 10px;
+                    background-color: $white;
+                    margin-right: 8px;
+                    cursor: pointer;
+                }
+            }
+        }  
+    }
+}

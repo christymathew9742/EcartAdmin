@@ -1,0 +1,165 @@
+@import '../../../commonStyles/font.module.scss';
+@import '../../../commonStyles/media-queries.scss';
+@import '../../../commonStyles/color.module.scss';
+@import '../../../commonStyles/style.module.scss';
+
+.homePage {
+    min-height: 72rem;
+    .homeBannerWrapper {
+        position: relative;
+        .bannerRtImg {
+            position: relative;
+            background-color:$banner-card-color;
+            width: 82%;
+            height: auto;
+            margin: 64px 64px 0px 0px;
+            padding: 34px;
+            :global {
+                .ant-row {
+                    h2 {
+                        font-style: normal;
+                        margin-top: 0px;
+                        @include fontStyle($font-poppins, 52px, 700, $titleh2-color, 65px, 0em);
+                        @include respond(medium) {
+                            @include fontStyle($font-poppins, 30px, 700, $titleh2-color, 42px, 0em);
+                        }
+                    }
+                    :nth-child(1) {
+                        @include fontStyle($font-poppins, 16px, 600, $text-color, 'normal', 3px);
+                        font-size: 16px;
+                        font-style: normal;
+                    }
+                    :nth-child(3) {
+                        @include fontStyle($font-poppins, 18px, 500, $text-color, 1.6em, 0);
+                        font-style: normal;
+                    }
+                    :nth-child(4) {
+                        background-color: $titleh2-color;
+                        padding: 13px 19px 38px 22px;
+                        border: none;
+                        span {
+                            @include fontStyle($font-poppins, 16px, 700, $white, 1.6em, 0);
+                        }
+                    }
+                }
+            
+            }
+            @include respond(medium) {
+                padding: 20px;
+                width: 100%;
+                max-width: 75%;
+                margin: auto;
+                justify-content: center;
+                margin-top: 16%;
+            }
+
+        }
+        .bannerSkeleton {
+            @include respond(medium) {
+                left: 50%!important;
+            }
+        }
+    }
+    .categoryWrapper {
+        @include title-typo;
+        .content {
+            text-align: center;
+            margin-bottom: 30px;
+            @include fontStyle($font-poppins, 20px, 400, $para-color, 'normal', 0);
+        }
+        img {
+            border-radius: 10px;
+        }
+        .catName {
+            text-align: center;
+            @include fontStyle($font-poppins, 20px, 500, $text-color, 'normal', 0);
+        }
+        :global {
+            .ant-skeleton-active {
+                top:12rem!important;
+            }
+        }
+    }
+    .productWrapper {
+        @include title-typo;
+        button.addToCartBtn, button.showmorebtn {
+            margin-top: 36px;
+            background-color: $white;
+            border: 1px solid $titleh2-color;
+            padding: 12px 50px 34px 50px;
+            span{
+              @include fontStyle($font-poppins, 16px, 600, $titleh2-color, 150%, 0);
+            }
+            :hover {
+                @include fontStyle($font-poppins, 16px, 600, $titleh2-color, 150%, 0);
+            }
+
+        }
+        .productPriceTable {
+            background-color: $price-tabel;
+            padding: 14px 0px 18px 14px!important;
+            h4 {
+                @include fontStyle($font-poppins, 24px, 600, $text-color, 120%, 0);
+                font-style: normal;
+            }
+            h5{
+                @include fontStyle($font-poppins, 16px, 500, $gray3, 150%, 0);
+                font-style: normal;
+            }
+            .priceWrapper {
+                :nth-child(1) {
+                    @include fontStyle($font-poppins, 20px, 600, $gray1, 150%, 0);
+                    font-style: normal;
+                }
+                :nth-child(2) {
+                    @include fontStyle($font-poppins, 16px, 400, $gray4, 180%, 0);
+                    font-style: normal;
+                    text-decoration-line: strikethrough;
+                    margin-left:20px;
+                    text-decoration: line-through;
+                }
+            }
+        }
+        .addToCartBtn {
+            opacity: 0;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            transition: opacity 0.3s;
+            background: white;
+        }
+        .shareWrapper{
+            opacity: 0;
+            position: absolute;
+            top: 35%;
+            left: 50%;
+        }
+        .productImg:hover {
+           filter: brightness(70%);
+           cursor: pointer;
+        }
+        .products:hover {
+            .addToCartBtn,
+            .shareWrapper {
+                opacity: 1;
+            }
+            .addToCartBtn:hover {
+                cursor: pointer;
+                background: white;
+            }
+        }
+        .products {
+            .discountRainge {
+                position: absolute;
+                right: 2rem;
+                top: 1rem;
+                font-size:10px;
+            }
+        }
+    }
+    .roomsPrototipe {
+        background-color: $prototpbg;
+    }
+}

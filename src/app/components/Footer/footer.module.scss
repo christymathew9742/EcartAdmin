@@ -1,0 +1,84 @@
+@import '../../commonStyles/font.module.scss';
+@import '../../commonStyles/media-queries.scss';
+@import '../../commonStyles/color.module.scss';
+@import '../../commonStyles/style.module.scss';
+
+.footer {
+    margin-top: 34px;
+    background: $white;
+    border-top: 1px solid $footerBr;
+    .footerContent {
+        margin-bottom: 20px;
+        border-bottom: 1px solid $footerBr;
+        h4 {
+            @include fontStyle($font-poppins, 24px, 700, $gray1, 36px, 0em);
+        }
+        strong,h5 {
+            @include fontStyle($font-poppins, 16px, 500, $footerLtitle, 36px, 0em);
+        }
+        li{
+            border: none!important;
+            a {
+                @include fontStyle($font-poppins, 16px, 500, $black, 36px, 0em);
+            }
+        }
+        input {
+            box-shadow: none!important;
+            border: none;
+            outline: 0!important;
+            border-bottom: 1px solid $black;
+            border-radius: 0px;
+            @include fontStyle($font-poppins, 14px, 400, $footerLtitle, 36px, 0em);
+        }
+        button {
+            @include fontStyle($font-poppins, 14px, 500, $black, 36px, 0em);
+            color:$black;
+            padding-bottom: 39px!important;
+            margin-left: 10px;
+            padding-bottom: 20px;
+            :hover {
+                color:$black!important
+            }
+            border-bottom: 1px solid $black;
+        }
+        .tc {
+            @include fontStyle($font-poppins, 16px, 400, $black, 36px, 0em);
+        }
+    }
+}
+.footerPopUp {
+    bottom:0;
+    :global {
+        .ant-modal-close{
+            top:-8px!important;
+        }
+        input {
+            box-shadow: none!important;
+            border: none;
+            outline: 0!important;
+            border-bottom: 1px solid $black;
+            border-radius: 0px;
+            @include fontStyle($font-poppins, 14px, 400, $footerLtitle, 36px, 0em);
+        }
+        button {
+            @include fontStyle($font-poppins, 14px, 500, $black, 36px, 0em);
+            color:$black;
+            padding-bottom: 39px!important;
+            margin-left: 10px;
+            padding-bottom: 20px;
+            :hover {
+                color:$black!important;
+            }
+            border-bottom: 1px solid $black;
+        }
+        li{
+            border: none!important;
+            a {
+                @include fontStyle($font-poppins, 12px, 500, $black, 36px, 0em);
+            }
+        }
+        strong,h5 {
+            @include fontStyle($font-poppins, 18px, 600, $footerLtitle, 36px, 0em);
+        }
+    }
+}
