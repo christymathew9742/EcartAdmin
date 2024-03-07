@@ -2,8 +2,10 @@ import React, { useEffect,useState,useRef, useCallback} from "react";
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    updateProfile,
 } from "firebase/auth";
-import {database} from '../../../../components/FirebaseConfig/firebaseConfig';
+import {Auth,database} from '../../../../components/FirebaseConfig/firebaseConfig';
+import { ref, set } from 'firebase/database';
 import firebase from 'firebase/app';
 import { useNavigate } from "react-router-dom";
 import styles from './login.module.scss';
@@ -38,30 +40,59 @@ const Login  = () => {
     const [CpasswordVisible, CsetPasswordVisible] = useState(false);
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [LpasswordVisible, LsetPasswordVisible] = useState(false);
-    const history = useNavigate();
+    const  [LoaderVisible,setLoaderVisible] =  useState(false)
+    const [errors, setErrors] = useState<string[]>([]);
+    const LogiedIn = useNavigate();
     const [login, setLogin] = useState(false);
     const goSignUp =()=>{
         setSign(prevState => !prevState);
+        form.resetFields();
     }
     const LoginFromHandler: any = useCallback(
-        (values: any ) => {
-            console.log(values)
+        async (values: any ) => {
             const email = values?.email
             const password = values?.password
-            createUserWithEmailAndPassword(database, email, password)
-            .then((data) => {
-                 console.log(data, "authData");
-                // history("/");
-                setSign(true)
-            })
-            .catch((err) => {
-                alert(err.code);
-                setLogin(true);
-            });
-    
-        },[]
+            const userName = values?.userName
+            const contactNumber = values?.telName
+            const userEmail = values?.userName
+            const userPassword = values?.UserPassword
+            setLoaderVisible(true) 
+            try {
+                if(userEmail && userPassword) {
+                    const userCredential = await signInWithEmailAndPassword(Auth, userEmail, userPassword);
+                    const user = userCredential.user;
+                    console.log('Logged in with email:', user.email);
+                    LogiedIn('/')
+                }else {
+                    const userCredential = await createUserWithEmailAndPassword(Auth, email, password);
+                    await updateProfile(userCredential.user, {
+                        displayName: userName,
+                        phoneNumber: contactNumber
+                    } as any)
+                    console.log("User registered successfully:", userCredential.user);
+                    setSign(true)
+                }
+                // updateProfile(user, {
+                //     displayName: "New Display Name",
+                //     photoURL: "https://example.com/new-photo.jpg"
+                // } as any)
+                
+                // await set(ref(database, `users/${userCredential.user.uid}`), {
+                //     username: username,
+                //     phoneNumber: contactNumber
+                // });
+                setLoaderVisible(true) 
+                form.resetFields();
+            } catch (error:any) {
+                console.error('Error registering user:', error);
+                const errorMessage = error.message || error.code;
+                setErrors([...errors, errorMessage] as string[]);
+            }  finally {
+                setLoaderVisible(false)
+            }
+        }, []
     );
-
+console.log(errors)
     return (
         <Layout
             className={styles['login']}
@@ -289,6 +320,7 @@ const Login  = () => {
                             <Button
                                 form="signIn"
                                 htmlType="submit"
+                                loading={LoaderVisible}
                             >
                                 Sign in
                             </Button>
