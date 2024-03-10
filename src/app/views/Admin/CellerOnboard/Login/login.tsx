@@ -2,9 +2,10 @@ import React, { useEffect,useState,useRef, useCallback} from "react";
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    updateProfile,
 } from "firebase/auth";
-import {database} from '../../../../components/FirebaseConfig/firebaseConfig';
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
+import {Auth,database} from '../../../../utils/FirebaseConfig/firebaseConfig';
 import { useNavigate } from "react-router-dom";
 import styles from './login.module.scss';
 import { 
@@ -23,7 +24,9 @@ import { NavLink } from "react-router-dom";
 import google from '../../../../assets/img/svg/google.svg'
 import faceBook from '../../../../assets/img/svg/Facebook.svg'
 import apple from '../../../../assets/img/svg/apple.svg'
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
 const {
     LOGIN: {
         LogoSection,
@@ -38,30 +41,53 @@ const Login  = () => {
     const [CpasswordVisible, CsetPasswordVisible] = useState(false);
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [LpasswordVisible, LsetPasswordVisible] = useState(false);
-    const history = useNavigate();
+    const  [LoaderVisible,setLoaderVisible] =  useState(false)
+    const [errors, setErrors] = useState<string[]>([]);
+    const LogiedIn = useNavigate();
     const [login, setLogin] = useState(false);
     const goSignUp =()=>{
         setSign(prevState => !prevState);
+        form.resetFields();
     }
     const LoginFromHandler: any = useCallback(
-        (values: any ) => {
-            console.log(values)
+        async (values: any ) => {
             const email = values?.email
             const password = values?.password
-            createUserWithEmailAndPassword(database, email, password)
-            .then((data) => {
-                 console.log(data, "authData");
-                // history("/");
-                setSign(true)
-            })
-            .catch((err) => {
-                alert(err.code);
-                setLogin(true);
-            });
-    
-        },[]
+            const userName = values?.userName
+            const contactNumber = values?.telName
+            const userEmail = values?.userName
+            const userPassword = values?.UserPassword
+            setLoaderVisible(true) 
+            try {
+                if(userEmail && userPassword) {
+                    const userCredential = await signInWithEmailAndPassword(Auth, userEmail, userPassword);
+                    const user = userCredential.user;
+                    if (user) {
+                        user.getIdToken().then(function(accessToken) {
+                          cookies.set('accessToken',accessToken)
+                        //   localStorage.setItem('oldPath', window.location.pathname);
+                        });
+                    }
+                    LogiedIn('/about')
+                }else {
+                    const userCredential = await createUserWithEmailAndPassword(Auth, email, password);
+                    await updateProfile(userCredential.user, {
+                        displayName: userName,
+                        phoneNumber: contactNumber
+                    } as any)
+                    setSign(true)
+                }
+                setLoaderVisible(true) 
+                form.resetFields();
+            } catch (error:any) {
+                console.error('Error registering user:', error);
+                const errorMessage = error.message || error.code;
+                setErrors([...errors, errorMessage] as string[]);
+            }  finally {
+                setLoaderVisible(false)
+            }
+        }, []
     );
-
     return (
         <Layout
             className={styles['login']}
@@ -107,7 +133,7 @@ const Login  = () => {
                                 <Typography.Paragraph
                                     className={styles['signIn']}
                                 >  
-                                    NO Account ? 
+                                    { isSign? 'NO Account ? ':'Have an Account ?'}
                                     <NavLink 
                                         to ='#'
                                         onClick={goSignUp}
@@ -289,6 +315,7 @@ const Login  = () => {
                             <Button
                                 form="signIn"
                                 htmlType="submit"
+                                loading={LoaderVisible}
                             >
                                 Sign in
                             </Button>

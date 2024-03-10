@@ -2,12 +2,12 @@ import React from "react"
 
 export const constantsText = {
     ROUTES: {
-        HOME: '/',
+        HOME: '/test',
         SHOP: '/shop',
         ABOUT: '/about',
         CONTACT: '/contact',
         PRODUCT:'/product',
-        SIGN_IN:'/admin',
+        SIGN_IN:'/',
         SIGN_UP: '/register',
         HEADER_LAYOUT:{
             Home:'Home',
@@ -23,18 +23,22 @@ export const constantsText = {
         LogoSection:'LOREM',
         SIGNIN : {
             SignIn:'Sign In',
+            UserNameLAbel:'Enter your email address',
+            UserName:'userName',
             Fpassword:'Forgot Password',
-            UserNameLAbel:'Enter your username or email address',
-            UserName:'username',
-            UplaceHolder:'User Name',
+            UplaceHolder:'Email',
             UserNameRules: [
                 {
                   required: true,
-                  message: 'User Name cannot be blank',
+                  message: 'Email  cannot be blank',
+                },
+                {
+                    pattern: new RegExp(/\S+@\S+\.\S+/),
+                    message: 'Enter valid email address',
                 },
             ],
             PasswordLabel: 'Enter your Password',
-            PasswordName: 'password',
+            PasswordName: 'UserPassword',
             PplaceHolder:'Password',
             PasswordRules: [
                 {
@@ -59,7 +63,7 @@ export const constantsText = {
                 message: 'Enter valid email address',
                 },
             ],
-            UserName: 'User name',
+            UserName: 'Display name',
             Uname :'userName',
             Uplaceholder:'User name',
             UserNameRules: [
