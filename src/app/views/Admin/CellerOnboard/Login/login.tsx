@@ -4,9 +4,8 @@ import {
     signInWithEmailAndPassword,
     updateProfile,
 } from "firebase/auth";
-import {Auth,database} from '../../../../components/FirebaseConfig/firebaseConfig';
-import { ref, set } from 'firebase/database';
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
+import {Auth,database} from '../../../../utils/FirebaseConfig/firebaseConfig';
 import { useNavigate } from "react-router-dom";
 import styles from './login.module.scss';
 import { 
@@ -25,7 +24,9 @@ import { NavLink } from "react-router-dom";
 import google from '../../../../assets/img/svg/google.svg'
 import faceBook from '../../../../assets/img/svg/Facebook.svg'
 import apple from '../../../../assets/img/svg/apple.svg'
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
 const {
     LOGIN: {
         LogoSection,
@@ -61,27 +62,21 @@ const Login  = () => {
                 if(userEmail && userPassword) {
                     const userCredential = await signInWithEmailAndPassword(Auth, userEmail, userPassword);
                     const user = userCredential.user;
-                    console.log('Logged in with email:', user.email);
-                    console.log("User registered successfully:", userCredential.user);
-                    LogiedIn('/')
+                    if (user) {
+                        user.getIdToken().then(function(accessToken) {
+                          cookies.set('accessToken',accessToken)
+                        //   localStorage.setItem('oldPath', window.location.pathname);
+                        });
+                    }
+                    LogiedIn('/about')
                 }else {
                     const userCredential = await createUserWithEmailAndPassword(Auth, email, password);
                     await updateProfile(userCredential.user, {
                         displayName: userName,
                         phoneNumber: contactNumber
                     } as any)
-                    console.log("User registered successfully:", userCredential.user);
                     setSign(true)
                 }
-                // updateProfile(user, {
-                //     displayName: "New Display Name",
-                //     photoURL: "https://example.com/new-photo.jpg"
-                // } as any)
-                
-                // await set(ref(database, `users/${userCredential.user.uid}`), {
-                //     username: username,
-                //     phoneNumber: contactNumber
-                // });
                 setLoaderVisible(true) 
                 form.resetFields();
             } catch (error:any) {

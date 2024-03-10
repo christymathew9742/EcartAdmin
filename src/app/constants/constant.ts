@@ -2,12 +2,12 @@ import React from "react"
 
 export const constantsText = {
     ROUTES: {
-        HOME: '/',
+        HOME: '/test',
         SHOP: '/shop',
         ABOUT: '/about',
         CONTACT: '/contact',
         PRODUCT:'/product',
-        SIGN_IN:'/admin',
+        SIGN_IN:'/',
         SIGN_UP: '/register',
         HEADER_LAYOUT:{
             Home:'Home',

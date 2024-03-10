@@ -1,0 +1,22 @@
+@import '../../commonStyles/font.module.scss';
+@import '../../commonStyles/media-queries.scss';
+@import '../../commonStyles/color.module.scss';
+
+.container {
+    height: 100vh;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  
+    div > p {
+      // border: 1px solid red;
+      margin-top: 20px;
+      text-align: center;
+      @include fontStyle($font-poppins, 16px, 400, '#272C39', 160%, 0.8);
+      // width: 50%;
+      width: 350px;
+    }
+}
