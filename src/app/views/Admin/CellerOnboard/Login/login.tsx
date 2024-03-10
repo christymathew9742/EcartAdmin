@@ -62,6 +62,7 @@ const Login  = () => {
                     const userCredential = await signInWithEmailAndPassword(Auth, userEmail, userPassword);
                     const user = userCredential.user;
                     console.log('Logged in with email:', user.email);
+                    console.log("User registered successfully:", userCredential.user);
                     LogiedIn('/')
                 }else {
                     const userCredential = await createUserWithEmailAndPassword(Auth, email, password);
@@ -92,7 +93,6 @@ const Login  = () => {
             }
         }, []
     );
-console.log(errors)
     return (
         <Layout
             className={styles['login']}
@@ -138,7 +138,7 @@ console.log(errors)
                                 <Typography.Paragraph
                                     className={styles['signIn']}
                                 >  
-                                    NO Account ? 
+                                    { isSign? 'NO Account ? ':'Have an Account ?'}
                                     <NavLink 
                                         to ='#'
                                         onClick={goSignUp}
