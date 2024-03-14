@@ -1,0 +1,24 @@
+@import '../../../../commonStyles/font.module.scss';
+@import '../../../../commonStyles/media-queries.scss';
+@import '../../../../commonStyles/color.module.scss';
+@import '../../../../commonStyles/style.module.scss';
+
+.addNewProduct {
+    h2 {
+        @include fontStyle($revert, 25px, 400, $TitleColor, 30px, 0);
+    }
+    form {
+        .productWrapper {
+            :nth-child(1),:nth-child(2) {
+
+            }
+            input{
+                height: 60px;
+                background-color: $white;
+                border-radius: 4px;
+            }
+        }
+    }
+}
+
+

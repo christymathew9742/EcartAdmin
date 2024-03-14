@@ -6,7 +6,9 @@
       "dom.iterable",
       "esnext"
     ],
-    "types": ["react-slick"],
+    "types": [
+      "react-slick"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -17,10 +19,9 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": false,
-    //"isolatedModules": true,
+    "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "preserve"
   },
   "include": [
     "src"

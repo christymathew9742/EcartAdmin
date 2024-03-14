@@ -2,13 +2,25 @@ import React from "react"
 
 export const constantsText = {
     ROUTES: {
-        HOME: '/test',
+        HOMEs: '/test',
         SHOP: '/shop',
         ABOUT: '/about',
         CONTACT: '/contact',
-        PRODUCT:'/product',
         SIGN_IN:'/',
         SIGN_UP: '/register',
+        HOME: '/main',
+        DASHBOARD: '/dashboard',
+        DASHBOARD_SLUG: '/:slug',
+        ORDERS:'/orders',
+        SETTINGS:'/settings',
+        PRODUCT:'Product',
+        PRODUCTS:{
+            AddProducts:'/add-product',
+            ListProduct:'/product-list',
+            Categories:'/categories',
+            Tags:'/tage',
+            Attributes:'/attributes'
+        },
         HEADER_LAYOUT:{
             Home:'Home',
             Shop:'Shop',
@@ -18,6 +30,38 @@ export const constantsText = {
         FOOTER_LAYOUT: {
             Send:'SUBSCRIBE',
         },
+    },
+
+    ADDNEWPRODUCT:{
+        MainTitle:'Add new product',
+    },
+    MENUITEM : {
+        MenuItems :[
+            {
+              key: '1',
+              label:(
+               `<a target="_blank" rel="noopener noreferrer" href="#">
+                1st menu item
+                </a>`
+              )
+            },
+            {
+              key: '2',
+              label: (`
+                <a target="_blank" rel="noopener noreferrer" href="#">
+                  2nd menu item
+                </a>
+              `),
+            },
+            {
+              key: '3',
+              label: (`
+                <a target="_blank" rel="noopener noreferrer" href="#">
+                  3rd menu item
+                </a>
+              `),
+            },
+        ],
     },
     LOGIN:{
         LogoSection:'LOREM',
@@ -107,6 +151,12 @@ export const constantsText = {
                 }),
             ],
         }
+    },
+    MAIN_LAYOUT: {
+        TEXT: 'For system support please contact your on-site super admin',
+        PHONE: '+91 1128827465',
+        FOOTER: '© 2022 Eshop. All rights reserved. Terms of Service',
+        HI: 'Hi',
     },
     SliderSettings :{
         dots: true,

@@ -5,7 +5,7 @@ import {
     updateProfile,
 } from "firebase/auth";
 import firebase from 'firebase/compat/app';
-import {Auth,database} from '../../../../utils/FirebaseConfig/firebaseConfig';
+import {Auth} from '../../../../utils/FirebaseConfig/firebaseConfig';
 import { useNavigate } from "react-router-dom";
 import styles from './login.module.scss';
 import { 
@@ -31,10 +31,12 @@ const {
     LOGIN: {
         LogoSection,
         SIGNUP,
-        SIGNIN
+        SIGNIN,
+    },
+    ROUTES: {
+        DASHBOARD
     }
 } = constantsText
-
 const Login  = () => {
     const [form] = Form.useForm();
     const [isSign, setSign] = useState(true)
@@ -65,10 +67,11 @@ const Login  = () => {
                     if (user) {
                         user.getIdToken().then(function(accessToken) {
                           cookies.set('accessToken',accessToken)
-                        //   localStorage.setItem('oldPath', window.location.pathname);
-                        });
+                        })
+                        cookies.set('currentUser',user)
                     }
-                    LogiedIn('/about')
+                    window.location.reload();
+                    LogiedIn(DASHBOARD)
                 }else {
                     const userCredential = await createUserWithEmailAndPassword(Auth, email, password);
                     await updateProfile(userCredential.user, {
@@ -133,7 +136,7 @@ const Login  = () => {
                                 <Typography.Paragraph
                                     className={styles['signIn']}
                                 >  
-                                    { isSign? 'NO Account ? ':'Have an Account ?'}
+                                    { isSign? 'NO Account ? ':'Account ?'}
                                     <NavLink 
                                         to ='#'
                                         onClick={goSignUp}
@@ -270,7 +273,7 @@ const Login  = () => {
                                                 label={SIGNUP?.PasswordLabel}
                                                 name={SIGNUP?.PasswordName}
                                                 rules={SIGNUP?.PasswordRules}
-                                                >
+                                            >
                                                 <Input.Password 
                                                     placeholder={SIGNUP?.PplaceHolder}
                                                     visibilityToggle={{ visible: passwordVisible, onVisibleChange: setPasswordVisible }}
@@ -323,7 +326,6 @@ const Login  = () => {
                     </Row>
                 </Col>
             </Row>
-
         </Layout>
     )
 }
