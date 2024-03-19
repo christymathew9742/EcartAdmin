@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from 'firebase/auth'
+import { getAuth,onAuthStateChanged  } from 'firebase/auth'
 import { getDatabase} from 'firebase/database';
+
+import React, { createContext, useState, useEffect, useContext } from 'react';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAO-R7xFOugQxoeA3oOXiAZlFwfuXS7uwQ",
@@ -12,7 +14,7 @@ const firebaseConfig = {
   appId: "1:595985211894:web:1da51d84015aab78d7e7d7",
   measurementId: "G-HGPEEHLR5W"
 };
-
 const app = initializeApp(firebaseConfig);
 export const Auth = getAuth(app);
 export const database = getDatabase(app);
+

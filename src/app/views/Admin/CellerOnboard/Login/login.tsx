@@ -5,7 +5,7 @@ import {
     updateProfile,
 } from "firebase/auth";
 import firebase from 'firebase/compat/app';
-import {Auth,database} from '../../../../utils/FirebaseConfig/firebaseConfig';
+import {Auth} from '../../../../utils/FirebaseConfig/firebaseConfig';
 import { useNavigate } from "react-router-dom";
 import styles from './login.module.scss';
 import { 
@@ -31,10 +31,12 @@ const {
     LOGIN: {
         LogoSection,
         SIGNUP,
-        SIGNIN
+        SIGNIN,
+    },
+    ROUTES: {
+        DASHBOARD
     }
 } = constantsText
-
 const Login  = () => {
     const [form] = Form.useForm();
     const [isSign, setSign] = useState(true)
@@ -61,14 +63,13 @@ const Login  = () => {
             try {
                 if(userEmail && userPassword) {
                     const userCredential = await signInWithEmailAndPassword(Auth, userEmail, userPassword);
+                    const uid = userCredential.user.uid;
                     const user = userCredential.user;
                     if (user) {
-                        user.getIdToken().then(function(accessToken) {
-                          cookies.set('accessToken',accessToken)
-                        //   localStorage.setItem('oldPath', window.location.pathname);
-                        });
+                        cookies.set('userToken',uid)
+                        cookies.set('currentUser',user)
                     }
-                    LogiedIn('/about')
+                    LogiedIn(DASHBOARD)
                 }else {
                     const userCredential = await createUserWithEmailAndPassword(Auth, email, password);
                     await updateProfile(userCredential.user, {
@@ -133,7 +134,7 @@ const Login  = () => {
                                 <Typography.Paragraph
                                     className={styles['signIn']}
                                 >  
-                                    { isSign? 'NO Account ? ':'Have an Account ?'}
+                                    { isSign? 'NO Account ? ':'Account ?'}
                                     <NavLink 
                                         to ='#'
                                         onClick={goSignUp}
@@ -212,7 +213,10 @@ const Login  = () => {
                                     name={SIGNIN?.UserName}
                                     rules={SIGNIN?.UserNameRules}
                                     >
-                                    <Input placeholder={SIGNIN?.UplaceHolder} />
+                                    <Input 
+                                        placeholder={SIGNIN?.UplaceHolder} 
+                                        autoComplete="email"
+                                    />
                                 </Form.Item>
                                 <Form.Item
                                     label={SIGNIN?.PasswordLabel}
@@ -222,6 +226,7 @@ const Login  = () => {
                                     <Input.Password 
                                         placeholder={SIGNIN?.PplaceHolder} 
                                         visibilityToggle={{ visible: LpasswordVisible, onVisibleChange: LsetPasswordVisible }}
+                                        autoComplete="current-password"
                                     />
                                 </Form.Item>
                             </> 
@@ -270,7 +275,7 @@ const Login  = () => {
                                                 label={SIGNUP?.PasswordLabel}
                                                 name={SIGNUP?.PasswordName}
                                                 rules={SIGNUP?.PasswordRules}
-                                                >
+                                            >
                                                 <Input.Password 
                                                     placeholder={SIGNUP?.PplaceHolder}
                                                     visibilityToggle={{ visible: passwordVisible, onVisibleChange: setPasswordVisible }}
@@ -323,9 +328,9 @@ const Login  = () => {
                     </Row>
                 </Col>
             </Row>
-
         </Layout>
     )
 }
 
 export default Login;
+

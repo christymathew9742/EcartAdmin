@@ -8,7 +8,7 @@ type PrivateRoutesProps = {
 };
 
 const PrivateRoutes = () => {
-  const userLoggedIn: boolean = cookies.get('accessToken') ? true : false; 
+  const userLoggedIn: boolean = cookies.get('userToken') ? true : false; 
   return !userLoggedIn ? <Navigate to="/" replace /> : <Outlet />;
 };
 

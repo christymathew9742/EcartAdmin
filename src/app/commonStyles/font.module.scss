@@ -8,6 +8,7 @@ $font-clr: white;
 $font-roboto: 'Roboto', sans-serif;
 $font-urbanist: 'Urbanist', sans-serif;
 $font-poppins: 'Poppins';
+$revert: revert;
 
 @mixin fontSize($size) {
   font-size: $base-font-size + $size;
