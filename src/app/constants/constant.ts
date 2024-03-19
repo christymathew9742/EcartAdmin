@@ -34,6 +34,21 @@ export const constantsText = {
 
     ADDNEWPRODUCT:{
         MainTitle:'Add new product',
+        MainTitleData:{
+            Name:'productTitle',
+            Placeholder:'Product name',
+            Rules: [
+                {
+                  required: true,
+                  message: 'Title  cannot be blank',
+                },
+            ],
+
+        },
+        ContentData:{
+            Name:'content',
+            Placeholder:'Enter your content here...',
+        }
     },
     MENUITEM : {
         MenuItems :[
@@ -63,6 +78,16 @@ export const constantsText = {
             },
         ],
     },
+    SELECTOPTIONS:[
+        {
+            value: '2',
+            label: 'Simple Product',
+        },
+        {
+            value: '1',
+            label: 'Veriable Product',
+        },
+    ],
     LOGIN:{
         LogoSection:'LOREM',
         SIGNIN : {

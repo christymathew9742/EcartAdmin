@@ -12,6 +12,8 @@ import { useMediaQuery } from 'react-responsive';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShare } from '@fortawesome/free-solid-svg-icons';
 
+import { debounce } from 'lodash';
+
 import { 
     Col, 
     Row,
@@ -25,6 +27,11 @@ import Layout from "antd/es/layout/layout";
 import CommonSkeleton from "../../../components/Skeleton/skeleton";
 
 const Home: React.FC  = () => {
+    debounce(() => {
+        // Your resize handling logic here
+        console.log('Window resized!');
+    }, 200); 
+    
     const isMobile:boolean = useMediaQuery({ maxWidth: 767 });
     const [payload,setPayload] : any = useState('chrisy');
     const [visibleImages, setVisibleImages]:any = useState([]);

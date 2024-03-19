@@ -1,48 +1,82 @@
-import React, { useEffect,useState,useRef} from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './product.module.scss';
+import { debounce } from 'lodash';
+import { getProductData } from "../../../../utils/utils";
 import { Row,
     Typography,
     Layout,
     Col,
     Input,
-    Form
+    Form,
+    Tabs,
+    Select,
+    Button
 } from "antd";
+import {
+    SettingOutlined,
+    BlockOutlined,
+    BuildOutlined ,
+    DashboardOutlined,
+} from '@ant-design/icons';
 import {constantsText} from '../../../../constants/constant'
-// import tinymce from 'tinymce/tinymce';
-// import 'tinymce/icons/default';
-// import 'tinymce/themes/silver';
-// import 'tinymce/plugins/paste';
-// import 'tinymce/plugins/link';
-// import 'tinymce/plugins/autoresize';
-// import TextArea from "antd/es/input/TextArea";
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { fetchPostProductRequest, fetchProductRequest } from "../../../../../redux/reducers/products/actions";
+import { getProductSelector } from "../../../../../redux/reducers/products/selectors";
+import Cookies from 'universal-cookie';
 
+const TabPane = Tabs.TabPane;
 const {
     ADDNEWPRODUCT: {
-        MainTitle
-    }  
-} = constantsText;
-
+        MainTitle,
+        MainTitleData,
+        ContentData,
+    },
+    ROUTES: {
+        PRODUCTS,
+    }, 
+}:any = constantsText;
 const Products  = () => {
-    const handleEditorChange:any = (content:any, editor:any) => {
-        console.log('Content was updated:', content);
-    };
-    // React.useEffect(() => {
-    //     tinymce.init({
-    //       selector: '#ProductEditor',
-    //       height: 500,
-    //       menubar: false,
-    //       plugins: ['paste', 'link', 'autoresize'],
-    //       toolbar: 'undo redo | bold italic | link',
-    //       setup: (editor) => {
-    //         editor.on('change', (e) => {
-    //           handleEditorChange(editor.getContent(), editor);
-    //         });
-    //       },
-    //     });
-    // }, []);
-    const [form] = Form.useForm();
-    const SubmitFromHandler = ()=>{
+    const navigate = useNavigate();
+    const cookies = new Cookies();
+    const userToken:any = cookies.get('userToken');
+    const dispatch = useDispatch();
+    const productStore:any = useSelector(getProductSelector);
+    const [editorData, setEditorData] = useState<string>('');
+    const  [LoaderVisible,setLoaderVisible] =  useState(false)
+    useEffect(() => {
+        dispatch(fetchProductRequest(userToken))
+    }, [userToken]); 
 
+    const { Header} = Layout;
+    const [form] = Form.useForm();
+    const productFromHandler: any = useCallback(
+        (values: any ) => {
+            const productData = {
+                userToken:userToken,
+                mainTitle: values?.productTitle,
+                description: editorData
+            }
+            try {
+                if(values?.productTitle && productStore.status === true) {
+                    dispatch(fetchPostProductRequest(productData));
+                    window.scrollTo(0, 0);
+                    setTimeout(() => {
+                        navigate(PRODUCTS.ListProduct);
+                    }, 1000);
+                }
+            } catch {
+
+            } finally {
+
+            }
+        }, [editorData,userToken]
+    );
+
+    const callback = (key:any) => {
+        console.log(key);
     }
 
     return (
@@ -59,8 +93,8 @@ const Products  = () => {
                 layout="vertical"
                 name="basic"
                 className={styles['form']}
-                id="signIn"
-                onFinish={(values) => SubmitFromHandler()}
+                id="postProductData"
+                onFinish={(values) => productFromHandler(values)}
             >
                 <Row
                     className={styles['productWrapper']}
@@ -70,20 +104,64 @@ const Products  = () => {
                         span={16}
                     >
                         <Form.Item
-                            label={''}
-                            name={''}
+                            name={MainTitleData.Name}
+                            rules={MainTitleData.Rules}
                         >
-                            <Input placeholder='Product name' />
+                            <Input placeholder={MainTitleData.Placeholder} />
                         </Form.Item>
-                        <Form.Item>
-                            {/* <TextArea id="ProductEditor" /> */}
+                        <Form.Item
+                            name={ContentData.Name}
+                        >
+                            <CKEditor
+                                editor={ ClassicEditor }
+                                data={editorData}
+                                onChange={(event: any, editor: any) => {
+                                    const data = editor.getData();
+                                    setEditorData(data);
+                                }}
+                                config={{
+                                    placeholder: ContentData.Placeholder}}
+                            />
                         </Form.Item>
+                        <Row
+                            className={styles['tabWrapper']}
+                        >
+                            <Header>
+                                <Row>
+                                    <Typography.Title
+                                        level={5}
+                                    >
+                                        Product Data
+                                    </Typography.Title>
+                                </Row>
+                            </Header>
+                            <Tabs 
+                                onChange={callback} 
+                                type="card"
+                                tabPosition="left"
+                                className={styles['tab']}
+                            >
+                                <TabPane icon ={<SettingOutlined/>} tab="General" key="1"> Content of Tab Pane 1</TabPane>
+                                <TabPane icon={<BlockOutlined />} tab="Inventory" key="2">Content of Tab Pane 2</TabPane>
+                                <TabPane icon={<BuildOutlined />} tab="Attributes" key="3">Content of Tab Pane 3</TabPane>
+                                <TabPane icon={<DashboardOutlined/>} tab="Advanced" key="4">Content of Tab Pane 4</TabPane>
+                            </Tabs>
+                        </Row>
                     </Col>
                     <Col
                         span={7}
                         offset={1}
                     >
-                    </Col>'
+                        <Row>
+                            <Button
+                                form="postProductData"
+                                htmlType="submit"
+                                loading={LoaderVisible}
+                            >
+                                Submit
+                            </Button>
+                        </Row>
+                    </Col>
                 </Row>
             </Form>
         </Layout>

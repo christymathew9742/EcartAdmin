@@ -1,9 +1,9 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import Home from './views/Web/Home/home';
-import About from './views/Web/About/about';
+// import Home from './views/Web/Home/home';
+
 import { constantsText } from './constants/constant';
-import Header from './components/Header/header';
-import Footer from './components/Footer/footer';
+// import Header from './components/Header/header';
+// import Footer from './components/Footer/footer';
 // import Product from './views/Admin/DashBoard/Products/product';
 import PrivateRoutes from './utils/PrivateRoutes/PrivateRoutes';
 import Cookies from 'universal-cookie';
@@ -30,7 +30,7 @@ const App = () => {
     }
   } = constantsText
   const cookies = new Cookies();
-  const userLoggedIn: boolean = cookies.get('accessToken') ? true : false; 
+  const userLoggedIn: boolean = cookies.get('userToken') ? true : false; 
   const navigate = useNavigate();
   const currentUser = cookies.get('currentUser')
   useEffect(() => {

@@ -66,6 +66,25 @@
             background-color: $dashbrdBg;
         }
     }
+    :global {
+        .ant-menu-submenu-inline {
+            .ant-menu-submenu-title {
+                padding-left: 19px!important;
+            }
+            .ant-menu-submenu-arrow {
+                top: 22px!important;
+            }
+        }
+        .ant-menu-submenu-vertical {
+            .ant-menu-submenu-title {
+                padding-left: 27px!important;
+            }
+        }
+        .ant-menu-sub {
+            margin-top: 0rem!important;
+            background-color: #2c3338!important;
+        }
+    }
 }
 
   

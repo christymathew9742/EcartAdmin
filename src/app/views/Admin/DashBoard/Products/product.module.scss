@@ -9,13 +9,82 @@
     }
     form {
         .productWrapper {
-            :nth-child(1),:nth-child(2) {
-
-            }
             input{
-                height: 60px;
+                height: 40px;
                 background-color: $white;
                 border-radius: 4px;
+                border: 1px solid $borderColorAd;
+                color: $TitleColor!important;
+                margin-bottom: 20px;
+            }
+            .tabWrapper {
+                border: 1px solid $borderColorAd;
+                border-radius: 4px;
+                background-color: $white;
+                .tab {
+                    width: 100%!important;
+                    padding: 0px 0px 0px 1px;
+                }
+                header {
+                    position: relative;
+                    width: 100%;
+                    margin-top: 2px;
+                    height: 30px;
+                    border-bottom: 1px solid $borderColorAd;
+                    background-color: $white!important;
+                    padding: 5px 0px 38px 20px;
+                    .antdSelect {
+                        width: 200px;
+                        margin-left: 10px;
+                    }
+                }
+            }
+            :global {
+                .ck-content{
+                    height: 300px;
+                    margin-bottom: 20px;
+                }
+                .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused),.ck-editor__top{
+                    border: 1px solid $borderColorAd;
+                }
+                .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+                    border-top: none;
+                    border-radius: 0px 0px 4px 4px!important;
+                }
+                .ck-editor__top {
+                    border-radius: 4px 4px 0px 0px!important;
+                }
+                .ck-placeholder {
+                    color: $TitleColor; 
+                }
+                .ant-tabs-card {
+                    width: 100%!important;
+                }
+                .ant-tabs-tab {
+                    color:$tabColor;
+                    position: relative;
+                    padding: 10px 50px 10px 10px;
+                    margin-top: 0px!important;
+                    float: left;
+                    border: 1px solid $tabSeletorColor;
+                    .anticonr {
+                        margin: 0px!important;
+                    }
+                    .ant-tabs-tab-btn {
+                        color: $TabFontColor;
+                    }
+                    width: 100%;
+                }
+                .ant-tabs-tab-active{
+                    background-color: $tabSeletorColor;
+                    .ant-tabs-tab-btn {
+                        color: $TabFontColor;
+                    }
+                    margin-left: 1px!important;
+                }
+                .ant-tabs-nav-more {
+                    display: none!important;
+                }
             }
         }
     }

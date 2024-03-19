@@ -7,9 +7,6 @@ import { ITodo } from './types';
 
 const getTodos: any = (action:any) => axios.get<ITodo[]>('/data.json');
 
-/*
-  Worker Saga: Fired on FETCH_TODO_REQUEST action
-*/
 function* fetchTodoSaga(action:any): any {
   try {
     const response: any = yield call(getTodos,action.payload);
@@ -27,10 +24,6 @@ function* fetchTodoSaga(action:any): any {
   }
 }
 
-/*
-  Starts worker saga on latest dispatched `FETCH_TODO_REQUEST` action.
-  Allows concurrent increments.
-*/
 function* todoSaga() {
   yield all([takeLatest(FETCH_TODO_REQUEST, fetchTodoSaga)]);
 }

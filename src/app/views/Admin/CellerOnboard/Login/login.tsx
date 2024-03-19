@@ -63,14 +63,12 @@ const Login  = () => {
             try {
                 if(userEmail && userPassword) {
                     const userCredential = await signInWithEmailAndPassword(Auth, userEmail, userPassword);
+                    const uid = userCredential.user.uid;
                     const user = userCredential.user;
                     if (user) {
-                        user.getIdToken().then(function(accessToken) {
-                          cookies.set('accessToken',accessToken)
-                        })
+                        cookies.set('userToken',uid)
                         cookies.set('currentUser',user)
                     }
-                    window.location.reload();
                     LogiedIn(DASHBOARD)
                 }else {
                     const userCredential = await createUserWithEmailAndPassword(Auth, email, password);
@@ -215,7 +213,10 @@ const Login  = () => {
                                     name={SIGNIN?.UserName}
                                     rules={SIGNIN?.UserNameRules}
                                     >
-                                    <Input placeholder={SIGNIN?.UplaceHolder} />
+                                    <Input 
+                                        placeholder={SIGNIN?.UplaceHolder} 
+                                        autoComplete="email"
+                                    />
                                 </Form.Item>
                                 <Form.Item
                                     label={SIGNIN?.PasswordLabel}
@@ -225,6 +226,7 @@ const Login  = () => {
                                     <Input.Password 
                                         placeholder={SIGNIN?.PplaceHolder} 
                                         visibilityToggle={{ visible: LpasswordVisible, onVisibleChange: LsetPasswordVisible }}
+                                        autoComplete="current-password"
                                     />
                                 </Form.Item>
                             </> 
@@ -331,3 +333,4 @@ const Login  = () => {
 }
 
 export default Login;
+

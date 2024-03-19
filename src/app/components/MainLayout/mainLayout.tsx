@@ -73,19 +73,18 @@ MENUITEM: {
 MAIN_LAYOUT,
 } = constantsText;
 
-
 const MainLayout: any = (props: any) => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed]:any = useState(false);
   const { pathname } = useLocation()
-  console.log(pathname)
   const {slug} = useParams()
   const handleLogout =  () => {
       try {
         setTimeout(() => {
+          cookies.remove('userToken');
+          cookies.remove('currentUser')
           Auth.signOut()
           navigate('/')
-          cookies.remove('accessToken');
         }, 2000);
       } catch (error) {
         console.error('Error signing out:', error);
